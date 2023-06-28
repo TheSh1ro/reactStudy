@@ -1,24 +1,52 @@
 import React from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+
 import { MaterialIcons } from "@expo/vector-icons";
 
 import Home from "./screens/Home";
 import Busca from "./screens/Busca";
 import Perfil from "./screens/Perfil";
 import Pedidos from "./screens/Pedidos";
-import Pagamentos from "./pages/Pagamentos";
+import PedidosAnteriores from "./screens/PedidosAnteriores";
+import Pagamentos from "./screens/Pagamentos";
+import Item from "./screens/Item";
 
 const BottomTab = createBottomTabNavigator();
-const PerfilStack = createStackNavigator();
+const Stack = createNativeStackNavigator();
+const Tab = createMaterialTopTabNavigator();
+
+function HomeRoutes() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Item" component={Item} />
+    </Stack.Navigator>
+  );
+}
+
+function PedidosRouter() {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="Pedidos" component={Pedidos} />
+      <Tab.Screen
+        name="PedidosAnteriores"
+        component={PedidosAnteriores}
+        options={{ tabBarLabel: "Pedidos Anteriores" }}
+      />
+    </Tab.Navigator>
+  );
+}
 
 function PerfilRoutes() {
   return (
-    <PerfilStack.Navigator>
-      <PerfilStack.Screen name="Perfil" component={Perfil} />
-      <PerfilStack.Screen name="Pagamentos" component={Pagamentos} />
-    </PerfilStack.Navigator>
+    <Stack.Navigator>
+      <Stack.Screen name="Perfil" component={Perfil} />
+      <Stack.Screen name="Pagamentos" component={Pagamentos} />
+    </Stack.Navigator>
   );
 }
 
@@ -32,8 +60,8 @@ export default function Routes() {
         }}
       >
         <BottomTab.Screen
-          name="Home"
-          component={Home}
+          name="HomeRoutes"
+          component={HomeRoutes}
           options={{
             tabBarLabel: "Home",
             tabBarIcon: ({ color }) => (
@@ -52,22 +80,12 @@ export default function Routes() {
           }}
         />
         <BottomTab.Screen
-          name="Pedidos"
-          component={Pedidos}
+          name="PedidosRouter"
+          component={PedidosRouter}
           options={{
             tabBarLabel: "Pedidos",
             tabBarIcon: ({ color }) => (
               <MaterialIcons name="assignment" color={color} size={26} />
-            ),
-          }}
-        />
-        <BottomTab.Screen
-          name="Perfil"
-          component={Perfil}
-          options={{
-            tabBarLabel: "Perfil",
-            tabBarIcon: ({ color }) => (
-              <MaterialIcons name="person" color={color} size={26} />
             ),
           }}
         />

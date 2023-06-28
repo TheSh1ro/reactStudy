@@ -1,10 +1,10 @@
-import { React } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
 
-export default function Busar() {
+export default function PedidosAnteriores() {
   return (
     <View style={styles.container}>
-      <Text>Texto</Text>
+      <Text>Pedidos Anteriores</Text>
     </View>
   );
 }
